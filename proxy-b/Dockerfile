@@ -8,5 +8,5 @@ RUN apt-get install -y sudo curl ed && usermod proxy -aG sudo \
 # stdout/stderrにログ出力するために、USER設定は必須
 USER proxy
 ENV TZ Asia/Tokyo
-ENTRYPOINT ["squid", "-N"]
-# CMD ["/bin/bash"]
+ENTRYPOINT ["bash", "-c"]
+CMD ["squid -Ns"]

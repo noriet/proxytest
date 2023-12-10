@@ -1,39 +1,25 @@
 services:
   target:
-    build:
-      context: ./target
+    build: ./target
     tty: true
     stdin_open: true
     environment:
-      https_proxy: http://proxy-b:3128
-    networks:
-      - frontend
+      https_proxy: http://proxy-a:3128
 
   proxy-a:
-    build:
-      context: ./proxy-a
+    build: ./proxy-a
     tty: true
     stdin_open: true
     volumes:
       - type: bind
         source: "./proxy-a/squid"
         target: "/etc/squid"
-    networks:
-      - frontend
     
   proxy-b:
-    build:
-      context: ./proxy-b
+    build: ./proxy-b
     environment:
       TZ: Asia/Tokyo
     volumes:
       - type: bind
         source: "./proxy-b/squid"
         target: "/etc/squid"
-    networks:
-      - frontend
-
-networks:
-  frontend:
-    driver: bridge
-               
